@@ -1,0 +1,100 @@
+/* Appliquer un style pour toute la page */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    font-family: 'Courier New', monospace;
+    color: #33ff33; /* Vert style terminal */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Conteneur de l'écran */
+.screen-container {
+    border: 4px solid #33ff33;
+    padding: 20px;
+    width: 600px;
+    height: 400px;
+    background-color: black;
+    position: relative;
+}
+
+/* Effet d'affichage pixellisé */
+.screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 2px dashed #33ff33;
+    padding: 10px;
+    position: relative;
+}
+
+/* Titre principal */
+.title {
+    font-size: 2rem;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+/* Texte du menu */
+.text {
+    font-size: 1.2rem;
+}
+
+/* Liste du menu */
+.menu {
+    list-style-type: none;
+    padding: 0;
+}
+
+.menu li {
+    margin: 10px 0;
+}
+
+.menu a {
+    color: #33ff33;
+    text-decoration: none;
+}
+
+.menu a:hover {
+    text-decoration: underline;
+    color: white;
+}
+
+/* Curseur clignotant */
+#cursor {
+    font-size: 1.5rem;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    color: #33ff33;
+    animation: blink 1s infinite;
+}
+
+/* Animation de clignotement */
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/* Scanlines pour l'effet CRT */
+.screen-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        transparent 0px,
+        transparent 1px,
+        rgba(255, 255, 255, 0.05) 2px
+    );
+    pointer-events: none;
+    z-index: 1;
+}
