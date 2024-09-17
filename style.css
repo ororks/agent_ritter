@@ -1,10 +1,10 @@
-/* Appliquer un style pour toute la page */
+/* Style global */
 body {
     margin: 0;
     padding: 0;
     background-color: black;
     font-family: 'Courier New', monospace;
-    color: #33ff33; /* Vert style terminal */
+    color: #33ff33;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,57 +21,15 @@ body {
     position: relative;
 }
 
-/* Effet d'affichage pixellisé */
-.screen {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    border: 2px dashed #33ff33;
-    padding: 10px;
-    position: relative;
-}
-
-/* Titre principal */
-.title {
+/* Texte affiché */
+#text-display {
     font-size: 2rem;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-}
-
-/* Texte du menu */
-.text {
-    font-size: 1.2rem;
-}
-
-/* Liste du menu */
-.menu {
-    list-style-type: none;
-    padding: 0;
-}
-
-.menu li {
-    margin: 10px 0;
-}
-
-.menu a {
-    color: #33ff33;
-    text-decoration: none;
-}
-
-.menu a:hover {
-    text-decoration: underline;
-    color: white;
+    text-align: center;
 }
 
 /* Curseur clignotant */
 #cursor {
-    font-size: 1.5rem;
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    color: #33ff33;
+    font-size: 2rem;
     animation: blink 1s infinite;
 }
 
@@ -82,19 +40,47 @@ body {
     100% { opacity: 1; }
 }
 
-/* Scanlines pour l'effet CRT */
-.screen-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
+/* Section de l'énigme */
+#enigme-section {
+    margin-top: 20px;
+}
+
+.enigme-text {
+    font-size: 1.5rem;
+}
+
+.enigme {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+input {
     width: 100%;
-    height: 100%;
-    background: repeating-linear-gradient(
-        transparent 0px,
-        transparent 1px,
-        rgba(255, 255, 255, 0.05) 2px
-    );
-    pointer-events: none;
-    z-index: 1;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 2px solid #33ff33;
+    background-color: black;
+    color: #33ff33;
+    font-size: 1rem;
+    font-family: 'Courier New', monospace;
+}
+
+button {
+    background-color: #33ff33;
+    border: none;
+    padding: 10px 20px;
+    color: black;
+    cursor: pointer;
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+}
+
+button:hover {
+    background-color: #009900;
+}
+
+#resultat {
+    margin-top: 10px;
+    font-size: 1.2rem;
+    color: #ff3333;
 }
