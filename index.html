@@ -1,25 +1,23 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site Rétro Minitel</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Site Style Minitel</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="screen-container">
-        <div class="screen">
-            <h1 class="title">Bienvenue sur le Minitel</h1>
-            <p class="text">Veuillez sélectionner une option :</p>
-            <ul class="menu">
-                <li><a href="#">1. Consulter</a></li>
-                <li><a href="#">2. Rechercher</a></li>
-                <li><a href="#">3. Quitter</a></li>
-            </ul>
-            <div id="cursor">_</div>
+    <div class="screen">
+        <div class="scanline"></div>
+        <div class="content">
+            <h1>Bienvenue sur le Minitel 2.0</h1>
+            <p>Ceci est une démonstration de site web inspiré du style Minitel.</p>
+            <button id="animateBtn">Animer le texte</button>
+            <div id="animatedText"></div>
         </div>
     </div>
-    
     <script src="script.js"></script>
 </body>
+</html>
 </html>
