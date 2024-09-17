@@ -1,18 +1,22 @@
-// Animation pour afficher le texte progressivement comme dans un terminal
-document.addEventListener("DOMContentLoaded", function() {
-    const textElement = document.querySelector('.text');
-    const textContent = textElement.innerHTML;
-    textElement.innerHTML = '';
-    
+// script.js
+document.addEventListener('DOMContentLoaded', () => {
+    const animateBtn = document.getElementById('animateBtn');
+    const animatedText = document.getElementById('animatedText');
+
+    const text = "Ceci est un texte animé comme sur un vieux terminal...";
     let index = 0;
-    
-    function typeText() {
-        if (index < textContent.length) {
-            textElement.innerHTML += textContent.charAt(index);
+
+    animateBtn.addEventListener('click', () => {
+        animatedText.textContent = '';
+        index = 0;
+        animateText();
+    });
+
+    function animateText() {
+        if (index < text.length) {
+            animatedText.textContent += text.charAt(index);
             index++;
-            setTimeout(typeText, 50); // Vitesse d'apparition des lettres
+            setTimeout(animateText, 100);
         }
     }
-
-    typeText();  // Démarrer l'animation du texte
 });
