@@ -1,30 +1,68 @@
-// Animation du texte "Agent Ritter..." suivi du curseur clignotant
-document.addEventListener("DOMContentLoaded", function() {
-    let agentRitterText = document.getElementById("agent-ritter");
-    let enigmeSection = document.getElementById("enigme-section");
-    let cursor = document.getElementById("cursor");
+/* Style global */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: black; /* Fond noir */
+    font-family: 'Courier New', monospace;
+    color: #33ff33; /* Texte vert par défaut */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
 
-    // Attendre l'appui sur Entrée pour révéler l'énigme
-    document.addEventListener("keydown", function(event) {
-        if (event.key === "Enter") {
-            cursor.style.display = "none";
-            agentRitterText.style.display = "none";
-            enigmeSection.style.display = "block";
-        }
-    });
+/* Conteneur de l'écran */
+.screen-container {
+    border: 4px solid #33ff33;
+    padding: 20px;
+    width: 600px;
+    height: 400px;
+    background-color: black; /* Fond noir de l'écran */
+    position: relative;
+}
 
-    // Gestion de la réponse à l'énigme
-    document.getElementById("valider").addEventListener("click", function() {
-        let reponse = document.getElementById("reponse").value.toLowerCase();
-        let resultat = document.getElementById("resultat");
+/* Texte affiché au départ */
+#text-display {
+    font-size: 2rem;
+    text-align: center;
+    color: #33ff33; /* Texte vert pour le style Minitel */
+}
 
-        // Vérification de la réponse
-        if (reponse === "un nuage") {
-            resultat.innerHTML = "Bravo ! Vous avez trouvé la bonne réponse.";
-            resultat.style.color = "#33ff33";
-        } else {
-            resultat.innerHTML = "Désolé, ce n'est pas la bonne réponse.";
-            resultat.style.color = "#ff3333";
-        }
-    });
-});
+/* Curseur clignotant */
+#cursor {
+    font-size: 2rem;
+    animation: blink 1s infinite;
+    color: #33ff33; /* Vert pour le curseur */
+}
+
+/* Animation de clignotement */
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/* Section de l'énigme */
+#enigme-section {
+    margin-top: 20px;
+}
+
+.enigme-text, .enigme {
+    font-size: 1.5rem;
+    color: white; /* Texte de l'énigme en blanc */
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 2px solid #33ff33;
+    background-color: black;
+    color: #33ff33; /* Vert pour l'entrée utilisateur */
+    font-size: 1rem;
+    font-family: 'Courier New', monospace;
+}
+
+button {
+    background-color: #33ff33;
+   
