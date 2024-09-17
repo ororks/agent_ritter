@@ -3,23 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site Rétro Minitel</title>
+    <title>Agent Ritter</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="screen-container">
         <div class="screen">
-            <h1 class="title">Bienvenue sur le Minitel</h1>
-            <p class="text">Veuillez sélectionner une option :</p>
-            <ul class="menu">
-                <li><a href="#">1. Consulter</a></li>
-                <li><a href="#">2. Rechercher</a></li>
-                <li><a href="#">3. Quitter</a></li>
-            </ul>
-            <div id="cursor">_</div>
+            <div id="text-display">
+                <span id="agent-ritter">Agent Ritter...</span>
+                <span id="cursor">_</span>
+            </div>
+            <div id="enigme-section" style="display: none;">
+                <p class="enigme-text">Voici votre énigme :</p>
+                <p class="enigme">Je peux voler sans ailes et pleurer sans yeux. Qui suis-je ?</p>
+                <input type="text" id="reponse" placeholder="Votre réponse ici...">
+                <button id="valider">Valider</button>
+                <p id="resultat"></p>
+            </div>
         </div>
     </div>
-    
     <script src="script.js"></script>
 </body>
 </html>
