@@ -62,7 +62,7 @@
             line-height: 1.5;
         }
 
-        #enigme-section, #message-final, #final-message {
+        #enigme-section, #message-final, #final-answer, #final-message {
             margin-top: 20px;
             display: none;
         }
@@ -70,15 +70,7 @@
         .enigme-text, .enigme {
             text-align: left;
             color: white;
-            font-size: 14px; /* Réduction de la taille de la police des énigmes */
-        }
-
-        .case {
-            display: none; /* On cache les cases, puisque maintenant on utilise une entrée texte simple */
-        }
-
-        #final-answer {
-            margin-top: 20px;
+            font-size: 14px;
         }
 
     </style>
@@ -121,7 +113,7 @@
                 </p>
             </div>
 
-            <!-- Section pour la réponse de la dernière étape (aphrodite) -->
+            <!-- Section pour entrer la réponse "aphrodite" -->
             <div id="final-answer" class="hidden">
                 <input type="text" id="final-reponse" placeholder="Entrez votre réponse ici...">
                 <button id="check-aphrodite">Valider</button>
@@ -187,6 +179,7 @@
             const resultat = document.getElementById('resultat');
 
             if (reponse === '80') {
+                // Afficher la deuxième énigme (Blobfish)
                 document.getElementById('enigme-text').innerHTML = `
                     Je vis dans les profondeurs, mais je ne suis pas un poisson.<br>
                     Mon corps semble flou, comme fait de gélatine.<br>
@@ -196,10 +189,12 @@
                 resultat.textContent = ''; 
                 document.getElementById('reponse').value = ''; 
             } else if (reponse.toLowerCase() === 'blobfish') {
+                // Passer à l'étape suivante
                 document.getElementById('enigme-section').classList.add('hidden');
                 document.getElementById('message-final').classList.remove('hidden');
                 document.getElementById('final-answer').classList.remove('hidden');
             } else {
+                // Mauvaise réponse
                 resultat.textContent = 'Mauvaise réponse, essayez encore.';
             }
         });
