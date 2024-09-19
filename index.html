@@ -62,7 +62,7 @@
             line-height: 1.5;
         }
 
-        #enigme-section, #message-final, #cases-section {
+        #enigme-section, #message-final, #cases-section, #final-message {
             margin-top: 20px;
             display: none;
         }
@@ -111,7 +111,8 @@
                     <br>1. Cococh prend 1/4 de la somme totale.
                     <br>2. Samsam prend 1/3 de ce qui reste après que Cococh a pris sa part.
                     <br>3. Jojo prend 1/2 de ce qui reste après que Samsam a pris sa part.
-                    <br>4. Après que tout le monde a pris sa part, il reste exactement 20 haricots magiques.
+                    <br>4. Après que tout le monde a pris sa part, il reste exactement 20 haricots magiques.<br><br>
+                    <strong>Question :</strong> Quelle était la quantité d’haricots magiques avant que les trois amis ne se les partagent ?
                 </p>
                 <input type="text" id="reponse" placeholder="Votre réponse ici...">
                 <button id="valider">Valider</button>
@@ -146,6 +147,12 @@
             </div>
 
             <button id="check-aphrodite" class="hidden">Valider</button>
+
+            <!-- Section pour le message final après avoir rempli "aphrodite" -->
+            <div id="final-message" class="hidden">
+                <p>Aphrodite, c’est l’art de séduire sans même essayer. Elle ne fait pas d’efforts, l’amour se glisse simplement derrière elle, comme une brise légère. Un sourire en coin, un regard qui en dit long, et voilà que tout le monde se retrouve à flotter, sans trop savoir pourquoi. C’est l’élégance tranquille qui rend tout un peu plus doux, un peu plus lumineux.</p>
+                <p>Bien joué agent Ritter, tu as réussi à parvenir jusqu’ici, j’espère que cette balade t’a rappelé de bons souvenirs... Tu n’es cependant pas arrivé au bout de ta quête. Pour continuer sache que l'amour véritable ne se dévoile qu'à ceux qui savent chercher dans l'invisible, là où la lumière ordinaire ne suffit pas à éclairer ce qui est caché aux yeux du monde. Tu devrais, pour réfléchir, aller prendre un café à la cafétéria du CROUS aux alentours de 12h peut-être que quelqu’un pourra t’aider là-bas.</p>
+            </div>
         </div>
     </div>
 
@@ -200,4 +207,43 @@
                 // Bonne réponse, on passe à l'énigme suivante
                 document.getElementById('enigme-text').innerHTML = `
                     Je vis dans les profondeurs, mais je ne suis pas un poisson.<br>
-                    Mon corps semble
+                    Mon corps semble flou, comme fait de gélatine.<br>
+                    J'ai un visage souriant qui intrigue les curieux,<br>
+                    Et mon nom semble dire que je suis tristement mystérieux.<br>
+                `;
+                resultat.textContent = ''; // Réinitialiser le texte du résultat
+                document.getElementById('reponse').value = ''; // Réinitialiser le champ de réponse
+            } else if (reponse.toLowerCase() === 'blobfish') {
+                // Bonne réponse à la deuxième énigme, afficher le message final
+                document.getElementById('enigme-section').classList.add('hidden');
+                document.getElementById('message-final').classList.remove('hidden');
+                document.getElementById('check-aphrodite').classList.remove('hidden');
+                document.getElementById('cases-section').classList.remove('hidden');
+            } else {
+                // Mauvaise réponse
+                resultat.textContent = 'Mauvaise réponse, essayez encore.';
+            }
+        });
+
+        // Vérification de la réponse "aphrodite" dans les 9 cases
+        document.getElementById('check-aphrodite').addEventListener('click', function() {
+            const cases = document.querySelectorAll('.case');
+            const expectedWord = 'aphrodite';
+            let userWord = '';
+
+            cases.forEach((box) => {
+                userWord += box.value.toLowerCase();
+            });
+
+            if (userWord === expectedWord) {
+                document.getElementById('message-final').classList.add('hidden');
+                document.getElementById('check-aphrodite').classList.add('hidden');
+                document.getElementById('cases-section').classList.add('hidden');
+                document.getElementById('final-message').classList.remove('hidden');
+            } else {
+                alert('Mauvaise réponse. Réessayez.');
+            }
+        });
+    </script>
+</body>
+</html>
