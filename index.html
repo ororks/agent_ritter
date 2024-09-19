@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agent Ritter</title>
-    <link rel="stylesheet" href="style.css">
     <style>
         body {
             font-family: monospace;
@@ -62,7 +61,7 @@
             line-height: 1.5;
         }
 
-        #enigme-section, #final-answer, #final-message {
+        #enigme-section, #message-code, #final-answer, #final-message {
             margin-top: 20px;
             display: none;
         }
@@ -99,9 +98,8 @@
                 <p id="resultat"></p>
             </div>
 
-            <!-- Section pour entrer la réponse "aphrodite" -->
-            <div id="final-answer" class="hidden">
-                <p><strong>Bravo agent Ritter tu as passé la première étape maintenant voici son message :</strong></p>
+            <!-- Section pour afficher le message codé après avoir entré "80" -->
+            <div id="message-code" class="hidden">
                 <p><strong>MESSAGE CODÉ — URGENCE PRIORITAIRE</strong></p>
                 <p>À l’attention de : Agent Momo Ritter<br>
                     Mission : "Opération BOLOSSE-21"<br><br>
@@ -116,7 +114,7 @@
                 <p id="final-result"></p>
             </div>
 
-            <!-- Section pour le message final après avoir entré "aphrodite" -->
+            <!-- Section pour afficher le message final après avoir entré "aphrodite" -->
             <div id="final-message" class="hidden">
                 <p>Aphrodite, c’est l’art de séduire sans même essayer. Elle ne fait pas d’efforts, l’amour se glisse simplement derrière elle, comme une brise légère. Un sourire en coin, un regard qui en dit long, et voilà que tout le monde se retrouve à flotter, sans trop savoir pourquoi. C’est l’élégance tranquille qui rend tout un peu plus doux, un peu plus lumineux.</p>
                 <p>Bien joué agent Ritter, tu as réussi à parvenir jusqu’ici, j’espère que cette balade t’a rappelé de bons souvenirs... Tu n’es cependant pas arrivé au bout de ta quête. Pour continuer sache que l'amour véritable ne se dévoile qu'à ceux qui savent chercher dans l'invisible, là où la lumière ordinaire ne suffit pas à éclairer ce qui est caché aux yeux du monde. Tu devrais, pour réfléchir, aller prendre un café à la cafétéria du CROUS aux alentours de 12h peut-être que quelqu’un pourra t’aider là-bas.</p>
@@ -175,9 +173,9 @@
             const resultat = document.getElementById('resultat');
 
             if (reponse === '80') {
-                // Afficher directement la partie "aphrodite"
+                // Afficher le message codé
                 document.getElementById('enigme-section').classList.add('hidden');
-                document.getElementById('final-answer').classList.remove('hidden');
+                document.getElementById('message-code').classList.remove('hidden');
             } else {
                 // Mauvaise réponse
                 resultat.textContent = 'Mauvaise réponse, essayez encore.';
@@ -189,7 +187,7 @@
             const expectedWord = 'aphrodite';
 
             if (userWord === expectedWord) {
-                document.getElementById('final-answer').classList.add('hidden');
+                document.getElementById('message-code').classList.add('hidden');
                 document.getElementById('final-message').classList.remove('hidden');
             } else {
                 document.getElementById('final-result').textContent = 'Mauvaise réponse, réessayez.';
