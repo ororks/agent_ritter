@@ -175,7 +175,7 @@
         };
 
         document.getElementById('valider').addEventListener('click', function() {
-            const reponse = document.getElementById('reponse').value.trim();
+            const reponse = document.getElementById('reponse').value.trim().toLowerCase(); // Convertir en minuscule pour comparaison
             const resultat = document.getElementById('resultat');
 
             if (reponse === '80') {
@@ -188,8 +188,8 @@
                 `;
                 resultat.textContent = ''; 
                 document.getElementById('reponse').value = ''; 
-            } else if (reponse.toLowerCase() === 'blobfish') {
-                // Passer à l'étape suivante
+            } else if (reponse === 'blobfish') {
+                // Passer à l'étape suivante après avoir validé blobfish
                 document.getElementById('enigme-section').classList.add('hidden');
                 document.getElementById('message-final').classList.remove('hidden');
                 document.getElementById('final-answer').classList.remove('hidden');
