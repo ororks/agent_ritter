@@ -89,10 +89,6 @@
             width: 50px;
         }
 
-        .hidden {
-            display: none;
-        }
-
     </style>
 </head>
 <body>
@@ -160,6 +156,7 @@
         const text = "CONFIDENTIEL - MISSION virus BOLOSSE-21.";
         let index = 0;
         let currentLetterBox = null;
+        let enigmeSectionVisible = false;
 
         function afficherLettre() {
             const textDisplay = document.getElementById('text-display');
@@ -169,63 +166,62 @@
             }
 
             if (index < text.length) {
-                // Créer un conteneur pour la lettre actuelle
                 const letterBox = document.createElement('span');
                 letterBox.classList.add('letter-box');
                 letterBox.textContent = text[index];
 
-                // Ajouter la lettre à l'interface
                 textDisplay.appendChild(letterBox);
 
                 currentLetterBox = letterBox;
 
-                // Afficher la lettre suivante trois fois plus rapidement
                 index++;
-                setTimeout(afficherLettre, 100); // Vitesse 3 fois plus rapide
+                setTimeout(afficherLettre, 100); 
             } else {
-                // Masquer le curseur une fois que le texte est affiché
                 document.getElementById('cursor').style.display = 'none';
-                afficherEnigme();  // Afficher l'énigme une fois le texte terminé
+                // Activer la détection de la touche Entrée pour afficher l'énigme
+                document.addEventListener('keydown', afficherEnigmeOnEnter);
             }
         }
 
-        // Afficher l'énigme après le texte
+        function afficherEnigmeOnEnter(event) {
+            if (event.key === 'Enter' && !enigmeSectionVisible) {
+                enigmeSectionVisible = true;
+                afficherEnigme(); 
+                document.removeEventListener('keydown', afficherEnigmeOnEnter); 
+            }
+        }
+
         function afficherEnigme() {
             document.getElementById('enigme-section').style.display = 'block';
         }
 
         window.onload = () => {
-            afficherLettre(); // Lancer l'animation au chargement
+            afficherLettre(); 
         };
 
-        // Fonction pour vérifier la réponse et passer à l'étape suivante
         document.getElementById('valider').addEventListener('click', function() {
             const reponse = document.getElementById('reponse').value.trim();
             const resultat = document.getElementById('resultat');
 
             if (reponse === '80') {
-                // Bonne réponse, on passe à l'énigme suivante
                 document.getElementById('enigme-text').innerHTML = `
                     Je vis dans les profondeurs, mais je ne suis pas un poisson.<br>
                     Mon corps semble flou, comme fait de gélatine.<br>
                     J'ai un visage souriant qui intrigue les curieux,<br>
                     Et mon nom semble dire que je suis tristement mystérieux.<br>
                 `;
-                resultat.textContent = ''; // Réinitialiser le texte du résultat
-                document.getElementById('reponse').value = ''; // Réinitialiser le champ de réponse
+                resultat.textContent = ''; 
+                document.getElementById('reponse').value = ''; 
             } else if (reponse.toLowerCase() === 'blobfish') {
-                // Bonne réponse à la deuxième énigme, afficher le message final
                 document.getElementById('enigme-section').classList.add('hidden');
                 document.getElementById('message-final').classList.remove('hidden');
                 document.getElementById('check-aphrodite').classList.remove('hidden');
                 document.getElementById('cases-section').classList.remove('hidden');
             } else {
-                // Mauvaise réponse
                 resultat.textContent = 'Mauvaise réponse, essayez encore.';
             }
         });
 
-        // Vérification de la réponse "aphrodite" dans les 9 cases
         document.getElementById('check-aphrodite').addEventListener('click', function() {
             const cases = document.querySelectorAll('.case');
             const expectedWord = 'aphrodite';
