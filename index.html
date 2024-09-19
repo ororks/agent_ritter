@@ -98,7 +98,7 @@
                 <p id="resultat"></p>
             </div>
 
-            <!-- Section pour afficher le message codé après avoir entré "80" -->
+            <!-- Section pour afficher le message codé et la réponse aphrodite -->
             <div id="message-code" class="hidden">
                 <p><strong>MESSAGE CODÉ — URGENCE PRIORITAIRE</strong></p>
                 <p>À l’attention de : Agent Momo Ritter<br>
@@ -173,7 +173,7 @@
             const resultat = document.getElementById('resultat');
 
             if (reponse === '80') {
-                // Afficher le message codé
+                // Afficher le message codé et l'entrée pour aphrodite
                 document.getElementById('enigme-section').classList.add('hidden');
                 document.getElementById('message-code').classList.remove('hidden');
             } else {
