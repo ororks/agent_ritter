@@ -11,7 +11,7 @@
             background-color: black;
             color: white;
         }
-        
+
         .screen-container {
             display: flex;
             justify-content: center;
@@ -41,7 +41,14 @@
             margin: 2px;
             min-width: 20px;
             text-align: center;
-            opacity: 0;
+            opacity: 1;
+            font-size: 16px; /* Texte plus petit */
+            transition: background-color 0.5s, opacity 0.5s;
+        }
+
+        .letter-box.show {
+            background-color: black;
+            color: white;
         }
 
         #cursor {
@@ -52,6 +59,10 @@
 
         @keyframes blink {
             50% { opacity: 0; }
+        }
+
+        #enigme-section {
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -88,16 +99,22 @@
                 // Ajouter la lettre avec une transition progressive
                 textDisplay.appendChild(letterBox);
 
-                // Utiliser setTimeout pour créer un effet progressif
+                // Utiliser setTimeout pour faire disparaître le carré vert après l'affichage
                 setTimeout(() => {
-                    letterBox.style.opacity = 1; // rendre la lettre visible progressivement
-                }, 50 * index); // délai en fonction de l'index pour créer l'effet progressif
+                    letterBox.classList.add('show');  // Change de fond vers noir et texte vers blanc
+                }, 500);  // Le délai avant que le carré vert disparaisse
 
                 index++;
                 setTimeout(afficherLettre, 100); // Vitesse d'apparition des lettres
             } else {
                 document.getElementById('cursor').style.display = 'none'; // Masquer le curseur quand le texte est fini
+                afficherEnigme();  // Afficher l'énigme une fois le texte affiché
             }
+        }
+
+        // Afficher l'énigme après que le texte soit affiché
+        function afficherEnigme() {
+            document.getElementById('enigme-section').style.display = 'block';
         }
 
         window.onload = () => {
@@ -110,9 +127,6 @@
             const canvas = document.getElementById('rose-fanee');
             if (canvas.getContext) {
                 const ctx = canvas.getContext('2d');
-
-                // Vérifier la taille du canvas
-                console.log("Taille du canvas:", canvas.width, canvas.height);
 
                 // Liste des positions pour les points représentant la rose fanée
                 const points = [
@@ -134,6 +148,14 @@
                 console.error("Le canvas n'est pas supporté par ce navigateur.");
             }
         }
+
+        // Ajout de l'événement de soumission sur la touche "Entrée"
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                // Afficher l'énigme quand "Entrée" est pressé
+                document.getElementById('enigme-section').style.display = 'block';
+            }
+        });
     </script>
 </body>
 </html>
