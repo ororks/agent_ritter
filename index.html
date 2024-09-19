@@ -23,7 +23,7 @@
             background-color: black;
             padding: 20px;
             border: 1px solid white;
-            width: 800px;  /* Taille agrandie */
+            width: 800px;
             text-align: center;
         }
 
@@ -42,7 +42,7 @@
             text-align: center;
             font-size: 24px;
             opacity: 1;
-            transition: opacity 0.25s; /* Transition plus rapide */
+            transition: opacity 0.25s;
         }
 
         #cursor {
@@ -55,22 +55,56 @@
             50% { opacity: 0; }
         }
 
-        #enigme-section {
+        #intro-text {
+            font-size: 12px;
+            margin-top: 10px;
+            text-align: left;
+            line-height: 1.5;
+        }
+
+        #enigme-section, #message-final, #cases-section {
             margin-top: 20px;
+            display: none;
         }
 
         .enigme-text, .enigme {
             text-align: left;
             color: white;
         }
+
+        #cases-section {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .case {
+            border: 2px solid white;
+            padding: 10px;
+            font-size: 24px;
+            text-align: center;
+            color: black;
+            background-color: white;
+            width: 50px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
     </style>
 </head>
 <body>
     <div class="screen-container">
         <div class="screen">
             <div id="text-display"></div>
+            <div id="intro-text">
+                Agent Ritter, <br><br>
+                Nous sommes face à une crise mondiale sans précédent. Un nouveau virus, surnommé <strong>BOLOSSE-21</strong>, s’est échappé du P3 de l’ENS, il se propage à une vitesse alarmante. Ses effets sont... inquiétants. Les personnes infectées perdent progressivement leur bon sens et font des choses insensées : envoyer des emails super longs à 23h, se curer les pieds au taff, faire des erreurs de castings, il fait même perdre la mémoire à certaines personnes… Nous avions déjà envoyé ton deuxième neurone mener l’enquête mais il a disparu, nous avons juste retrouvé un message de sa part nous disant de te contacter. Mais avant de te le donner, il nous a dit de tester tes compétences, résous ces deux énigmes et nous te le montrerons.
+            </div>
             <span id="cursor">_</span>
-            <div id="enigme-section" style="display: none;">
+            <div id="enigme-section">
                 <p class="enigme-text">Voici votre énigme :</p>
                 <p class="enigme" id="enigme-text">
                     Trois amis, Cococh, Samsam, et Jojo, décident de se partager des haricots magiques. Pour cela, Melmel leur a imposé ces règles :
@@ -83,8 +117,35 @@
                 <button id="valider">Valider</button>
                 <p id="resultat"></p>
             </div>
-            <!-- Ajout d'un canvas pour dessiner la rose fanée -->
-            <canvas id="rose-fanee" width="200" height="200" style="border:1px solid #000000;"></canvas>
+
+            <!-- Section pour afficher le message final -->
+            <div id="message-final" class="hidden">
+                <p>Bravo agent Ritter tu as passé la première étape maintenant voici son message :</p>
+                <p><strong>MESSAGE CODÉ — URGENCE PRIORITAIRE</strong></p>
+                <p>À l’attention de : Agent Momo Ritter<br>
+                    Mission : "Opération BOLOSSE-21"<br><br>
+                    Agent Ritter, alias Momo,<br>
+                    Ta mission ne fait que commencer. Il y a 12 endroits... des endroits que seuls toi et moi connaissons. Des lieux qui ont marqué nos précédentes missions, où chaque recoin cache un souvenir, mais surtout... un message. Ensemble, ces messages formeront la clé pour comprendre ce qui t’attends. Mais attention, ces lieux ne sont pas anodins, et trouver les messages ne sera pas chose facile.<br><br>
+                    Je n’ai pas besoin de te les nommer. Tu sais exactement où aller.<br>
+                    Momo, cette fois, c’est à toi de partir seul. Cherche ces lieux, trouve les messages, et déchiffre le puzzle. Je te rejoindrai une fois que tu auras tous les indices en main, conserve les bien et souviens-toi, le temps est compté, et ce n'est pas un simple jeu. Il faut agir vite avant que le virus du BOLOSSE-21 ne s’enracine trop au sein de l’équipe, déjà plusieurs PIs semblent gravement atteints…<br><br>
+                    Bonne chance ma Momo.
+                </p>
+            </div>
+
+            <!-- Section pour les 9 cases -->
+            <div id="cases-section">
+                <input type="text" maxlength="1" class="case">
+                <input type="text" maxlength="1" class="case">
+                <input type="text" maxlength="1" class="case">
+                <input type="text" maxlength="1" class="case">
+                <input type="text" maxlength="1" class="case">
+                <input type="text" maxlength="1" class="case">
+                <input type="text" maxlength="1" class="case">
+                <input type="text" maxlength="1" class="case">
+                <input type="text" maxlength="1" class="case">
+            </div>
+
+            <button id="check-aphrodite" class="hidden">Valider</button>
         </div>
     </div>
 
@@ -111,9 +172,9 @@
 
                 currentLetterBox = letterBox;
 
-                // Afficher la lettre suivante plus rapidement
+                // Afficher la lettre suivante trois fois plus rapidement
                 index++;
-                setTimeout(afficherLettre, 250); // Délai réduit pour une vitesse deux fois plus rapide
+                setTimeout(afficherLettre, 100); // Vitesse 3 fois plus rapide
             } else {
                 // Masquer le curseur une fois que le texte est affiché
                 document.getElementById('cursor').style.display = 'none';
@@ -128,10 +189,9 @@
 
         window.onload = () => {
             afficherLettre(); // Lancer l'animation au chargement
-            dessinerRoseFanee(); // Dessiner la rose fanée
         };
 
-        // Fonction pour vérifier la réponse et passer à l'énigme suivante
+        // Fonction pour vérifier la réponse et passer à l'étape suivante
         document.getElementById('valider').addEventListener('click', function() {
             const reponse = document.getElementById('reponse').value.trim();
             const resultat = document.getElementById('resultat');
@@ -140,49 +200,4 @@
                 // Bonne réponse, on passe à l'énigme suivante
                 document.getElementById('enigme-text').innerHTML = `
                     Je vis dans les profondeurs, mais je ne suis pas un poisson.<br>
-                    Mon corps semble flou, comme fait de gélatine.<br>
-                    J'ai un visage souriant qui intrigue les curieux,<br>
-                    Et mon nom semble dire que je suis tristement mystérieux.<br>
-                `;
-                resultat.textContent = ''; // Réinitialiser le texte du résultat
-                document.getElementById('reponse').value = ''; // Réinitialiser le champ de réponse
-            } else {
-                // Mauvaise réponse
-                resultat.textContent = 'Mauvaise réponse, essayez encore.';
-            }
-        });
-
-        // Dessiner la rose fanée avec des points
-        function dessinerRoseFanee() {
-            const canvas = document.getElementById('rose-fanee');
-            if (canvas.getContext) {
-                const ctx = canvas.getContext('2d');
-
-                const points = [
-                    {x: 50, y: 50}, {x: 55, y: 48}, {x: 60, y: 47}, {x: 65, y: 50}, {x: 70, y: 55}, // Pétales du haut
-                    {x: 65, y: 60}, {x: 60, y: 65}, {x: 55, y: 63}, {x: 50, y: 60}, {x: 45, y: 55}, // Pétales du bas
-                    {x: 50, y: 70}, {x: 53, y: 75}, {x: 57, y: 80}, // Tige
-                    {x: 57, y: 85}, {x: 56, y: 90}, {x: 55, y: 95}, {x: 54, y: 100} // Tige courbée
-                ];
-
-                points.forEach(point => {
-                    ctx.beginPath();
-                    ctx.arc(point.x, point.y, 3, 0, 2 * Math.PI);
-                    ctx.fillStyle = 'black';
-                    ctx.fill();
-                    ctx.closePath();
-                });
-            } else {
-                console.error("Le canvas n'est pas supporté.");
-            }
-        }
-
-        // Événement pour afficher l'énigme quand "Entrée" est pressé
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Enter') {
-                document.getElementById('enigme-section').style.display = 'block';
-            }
-        });
-    </script>
-</body>
-</html>
+                    Mon corps semble
