@@ -62,7 +62,7 @@
             line-height: 1.5;
         }
 
-        #enigme-section, #message-final, #final-answer, #final-message {
+        #enigme-section, #final-answer, #final-message {
             margin-top: 20px;
             display: none;
         }
@@ -99,9 +99,9 @@
                 <p id="resultat"></p>
             </div>
 
-            <!-- Section pour afficher le message final -->
-            <div id="message-final" class="hidden">
-                <p>Bravo agent Ritter tu as passé la première étape maintenant voici son message :</p>
+            <!-- Section pour entrer la réponse "aphrodite" -->
+            <div id="final-answer" class="hidden">
+                <p><strong>Bravo agent Ritter tu as passé la première étape maintenant voici son message :</strong></p>
                 <p><strong>MESSAGE CODÉ — URGENCE PRIORITAIRE</strong></p>
                 <p>À l’attention de : Agent Momo Ritter<br>
                     Mission : "Opération BOLOSSE-21"<br><br>
@@ -111,10 +111,6 @@
                     Momo, cette fois, c’est à toi de partir seul. Cherche ces lieux, trouve les messages, et déchiffre le puzzle. Je te rejoindrai une fois que tu auras tous les indices en main, conserve les bien et souviens-toi, le temps est compté, et ce n'est pas un simple jeu. Il faut agir vite avant que le virus du BOLOSSE-21 ne s’enracine trop au sein de l’équipe, déjà plusieurs PIs semblent gravement atteints…<br><br>
                     Bonne chance ma Momo.
                 </p>
-            </div>
-
-            <!-- Section pour entrer la réponse "aphrodite" -->
-            <div id="final-answer" class="hidden">
                 <input type="text" id="final-reponse" placeholder="Entrez votre réponse ici...">
                 <button id="check-aphrodite">Valider</button>
                 <p id="final-result"></p>
@@ -175,23 +171,12 @@
         };
 
         document.getElementById('valider').addEventListener('click', function() {
-            const reponse = document.getElementById('reponse').value.trim().toLowerCase(); // Convertir en minuscule pour comparaison
+            const reponse = document.getElementById('reponse').value.trim().toLowerCase(); 
             const resultat = document.getElementById('resultat');
 
             if (reponse === '80') {
-                // Afficher la deuxième énigme (Blobfish)
-                document.getElementById('enigme-text').innerHTML = `
-                    Je vis dans les profondeurs, mais je ne suis pas un poisson.<br>
-                    Mon corps semble flou, comme fait de gélatine.<br>
-                    J'ai un visage souriant qui intrigue les curieux,<br>
-                    Et mon nom semble dire que je suis tristement mystérieux.<br>
-                `;
-                resultat.textContent = ''; 
-                document.getElementById('reponse').value = ''; 
-            } else if (reponse === 'blobfish') {
-                // Passer à l'étape suivante après avoir validé blobfish
+                // Afficher directement la partie "aphrodite"
                 document.getElementById('enigme-section').classList.add('hidden');
-                document.getElementById('message-final').classList.remove('hidden');
                 document.getElementById('final-answer').classList.remove('hidden');
             } else {
                 // Mauvaise réponse
@@ -204,7 +189,6 @@
             const expectedWord = 'aphrodite';
 
             if (userWord === expectedWord) {
-                document.getElementById('message-final').classList.add('hidden');
                 document.getElementById('final-answer').classList.add('hidden');
                 document.getElementById('final-message').classList.remove('hidden');
             } else {
