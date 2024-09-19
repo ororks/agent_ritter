@@ -23,14 +23,14 @@
             background-color: black;
             padding: 20px;
             border: 1px solid white;
-            width: 400px;
+            width: 800px;  /* Agrandir la largeur de la page */
             text-align: center;
         }
 
         #text-display {
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
+            align-items: center;
         }
 
         .letter-box {
@@ -41,8 +41,7 @@
             margin: 2px;
             min-width: 20px;
             text-align: center;
-            opacity: 1;
-            font-size: 16px; /* Texte plus petit */
+            font-size: 24px; /* Texte plus petit */
             transition: background-color 0.5s, opacity 0.5s;
         }
 
@@ -86,29 +85,35 @@
     <script>
         const text = "CONFIDENTIEL - MISSION virus BOLOSSE-21.";
         let index = 0;
+        let currentLetterBox = null;
 
         function afficherLettre() {
             const textDisplay = document.getElementById('text-display');
 
+            if (currentLetterBox) {
+                // Rendre la lettre précédente normale (supprimer le carré vert)
+                currentLetterBox.classList.add('show');
+            }
+
             if (index < text.length) {
-                // Créer une case verte pour chaque lettre
+                // Créer une case verte pour la lettre actuelle
                 const letterBox = document.createElement('span');
                 letterBox.classList.add('letter-box');
                 letterBox.textContent = text[index];
 
-                // Ajouter la lettre avec une transition progressive
+                // Ajouter la lettre dans l'interface
                 textDisplay.appendChild(letterBox);
 
-                // Utiliser setTimeout pour faire disparaître le carré vert après l'affichage
-                setTimeout(() => {
-                    letterBox.classList.add('show');  // Change de fond vers noir et texte vers blanc
-                }, 500);  // Le délai avant que le carré vert disparaisse
+                // Enregistrer la lettre actuelle pour la prochaine itération
+                currentLetterBox = letterBox;
 
+                // Afficher la lettre suivante après un certain délai
                 index++;
-                setTimeout(afficherLettre, 100); // Vitesse d'apparition des lettres
+                setTimeout(afficherLettre, 500); // Rendre l'affichage plus lent (0.5 seconde entre les lettres)
             } else {
-                document.getElementById('cursor').style.display = 'none'; // Masquer le curseur quand le texte est fini
-                afficherEnigme();  // Afficher l'énigme une fois le texte affiché
+                // Quand toutes les lettres sont affichées, masquer le curseur
+                document.getElementById('cursor').style.display = 'none';
+                afficherEnigme(); // Afficher l'énigme une fois que le texte est fini
             }
         }
 
