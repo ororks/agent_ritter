@@ -20,8 +20,41 @@
                 <button id="valider">Valider</button>
                 <p id="resultat"></p>
             </div>
+            <!-- Ajout d'un canvas pour dessiner la rose fanée -->
+            <canvas id="rose-fanee" width="200" height="200" style="border:1px solid #000000;"></canvas>
         </div>
     </div>
+
     <script src="script.js"></script>
+    <script>
+        // Fonction pour dessiner la rose fanée avec des points
+        function dessinerRoseFanee() {
+            const canvas = document.getElementById('rose-fanee');
+            const ctx = canvas.getContext('2d');
+
+            // Liste des positions pour les points représentant la rose fanée
+            const points = [
+                {x: 50, y: 50}, {x: 55, y: 48}, {x: 60, y: 47}, {x: 65, y: 50}, {x: 70, y: 55}, // Pétales du haut
+                {x: 65, y: 60}, {x: 60, y: 65}, {x: 55, y: 63}, {x: 50, y: 60}, {x: 45, y: 55}, // Pétales du bas
+                {x: 50, y: 70}, {x: 53, y: 75}, {x: 57, y: 80}, // Tige
+                {x: 57, y: 85}, {x: 56, y: 90}, {x: 55, y: 95}, {x: 54, y: 100} // Tige courbée (rose fanée)
+            ];
+
+            // Dessiner chaque point comme un petit cercle
+            points.forEach(point => {
+                ctx.beginPath();
+                ctx.arc(point.x, point.y, 3, 0, 2 * Math.PI); // Cercle de rayon 3
+                ctx.fillStyle = 'black'; // Couleur des points
+                ctx.fill();
+                ctx.closePath();
+            });
+        }
+
+        // Appeler la fonction pour dessiner la rose dès que la page se charge
+        window.onload = function() {
+            dessinerRoseFanee();
+        };
+    </script>
 </body>
 </html>
+
