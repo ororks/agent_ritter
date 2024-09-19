@@ -62,7 +62,7 @@
             line-height: 1.5;
         }
 
-        #enigme-section, #message-final, #cases-section, #final-message {
+        #enigme-section, #message-final, #final-message {
             margin-top: 20px;
             display: none;
         }
@@ -70,23 +70,15 @@
         .enigme-text, .enigme {
             text-align: left;
             color: white;
-        }
-
-        #cases-section {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 20px;
+            font-size: 14px; /* Réduction de la taille de la police des énigmes */
         }
 
         .case {
-            border: 2px solid white;
-            padding: 10px;
-            font-size: 24px;
-            text-align: center;
-            color: black;
-            background-color: white;
-            width: 50px;
+            display: none; /* On cache les cases, puisque maintenant on utilise une entrée texte simple */
+        }
+
+        #final-answer {
+            margin-top: 20px;
         }
 
     </style>
@@ -129,22 +121,14 @@
                 </p>
             </div>
 
-            <!-- Section pour les 9 cases -->
-            <div id="cases-section" class="hidden">
-                <input type="text" maxlength="1" class="case">
-                <input type="text" maxlength="1" class="case">
-                <input type="text" maxlength="1" class="case">
-                <input type="text" maxlength="1" class="case">
-                <input type="text" maxlength="1" class="case">
-                <input type="text" maxlength="1" class="case">
-                <input type="text" maxlength="1" class="case">
-                <input type="text" maxlength="1" class="case">
-                <input type="text" maxlength="1" class="case">
+            <!-- Section pour la réponse de la dernière étape (aphrodite) -->
+            <div id="final-answer" class="hidden">
+                <input type="text" id="final-reponse" placeholder="Entrez votre réponse ici...">
+                <button id="check-aphrodite">Valider</button>
+                <p id="final-result"></p>
             </div>
 
-            <button id="check-aphrodite" class="hidden">Valider</button>
-
-            <!-- Section pour le message final après avoir rempli "aphrodite" -->
+            <!-- Section pour le message final après avoir entré "aphrodite" -->
             <div id="final-message" class="hidden">
                 <p>Aphrodite, c’est l’art de séduire sans même essayer. Elle ne fait pas d’efforts, l’amour se glisse simplement derrière elle, comme une brise légère. Un sourire en coin, un regard qui en dit long, et voilà que tout le monde se retrouve à flotter, sans trop savoir pourquoi. C’est l’élégance tranquille qui rend tout un peu plus doux, un peu plus lumineux.</p>
                 <p>Bien joué agent Ritter, tu as réussi à parvenir jusqu’ici, j’espère que cette balade t’a rappelé de bons souvenirs... Tu n’es cependant pas arrivé au bout de ta quête. Pour continuer sache que l'amour véritable ne se dévoile qu'à ceux qui savent chercher dans l'invisible, là où la lumière ordinaire ne suffit pas à éclairer ce qui est caché aux yeux du monde. Tu devrais, pour réfléchir, aller prendre un café à la cafétéria du CROUS aux alentours de 12h peut-être que quelqu’un pourra t’aider là-bas.</p>
@@ -178,7 +162,6 @@
                 setTimeout(afficherLettre, 100); 
             } else {
                 document.getElementById('cursor').style.display = 'none';
-                // Activer la détection de la touche Entrée pour afficher l'énigme
                 document.addEventListener('keydown', afficherEnigmeOnEnter);
             }
         }
@@ -215,29 +198,22 @@
             } else if (reponse.toLowerCase() === 'blobfish') {
                 document.getElementById('enigme-section').classList.add('hidden');
                 document.getElementById('message-final').classList.remove('hidden');
-                document.getElementById('check-aphrodite').classList.remove('hidden');
-                document.getElementById('cases-section').classList.remove('hidden');
+                document.getElementById('final-answer').classList.remove('hidden');
             } else {
                 resultat.textContent = 'Mauvaise réponse, essayez encore.';
             }
         });
 
         document.getElementById('check-aphrodite').addEventListener('click', function() {
-            const cases = document.querySelectorAll('.case');
+            const userWord = document.getElementById('final-reponse').value.trim().toLowerCase();
             const expectedWord = 'aphrodite';
-            let userWord = '';
-
-            cases.forEach((box) => {
-                userWord += box.value.toLowerCase();
-            });
 
             if (userWord === expectedWord) {
                 document.getElementById('message-final').classList.add('hidden');
-                document.getElementById('check-aphrodite').classList.add('hidden');
-                document.getElementById('cases-section').classList.add('hidden');
+                document.getElementById('final-answer').classList.add('hidden');
                 document.getElementById('final-message').classList.remove('hidden');
             } else {
-                alert('Mauvaise réponse. Réessayez.');
+                document.getElementById('final-result').textContent = 'Mauvaise réponse, réessayez.';
             }
         });
     </script>
